@@ -368,7 +368,7 @@ $navbar-padding-horizontal:        floor(($grid-gutter-width / 2));
 $navbar-padding-vertical:          (($navbar-height - $line-height-computed) / 2);
 $navbar-collapse-max-height:       340px;
 
-$navbar-default-color:             #777;
+$navbar-default-color:             #fff;
 $navbar-default-bg:                $brand-primary;
 $navbar-default-border:            transparent;
 
@@ -501,19 +501,19 @@ $jumbotron-font-size:            ceil(($font-size-base * 1.5));
 //
 //## Define colors for form feedback states and, by default, alerts.
 
-$state-success-text:             #fff;
+$state-success-text:             $brand-success;
 $state-success-bg:               $brand-success;
 $state-success-border:           $brand-success;
 
-$state-info-text:                #fff;
+$state-info-text:                $brand-info;
 $state-info-bg:                  $brand-info;
 $state-info-border:              $brand-info;
 
-$state-warning-text:             #fff;
+$state-warning-text:             $brand-warning;
 $state-warning-bg:               $brand-warning;
 $state-warning-border:           $brand-warning;
 
-$state-danger-text:              #fff;
+$state-danger-text:              $brand-danger;
 $state-danger-bg:                $brand-danger;
 $state-danger-border:            $brand-danger;
 
