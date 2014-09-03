@@ -14,19 +14,19 @@ var Thing = require('./thing.model');
 
 // Get list of things
 exports.index = function(req, res) {
-  Thing.find(function (err, things) {
-    if(err) { return handleError(res, err); }
-    return res.json(200, things);
-  });
+    Thing.find(function (err, things) {
+      if(err) { return handleError(res, err); }
+      return res.json(200, things);
+    });
 };
 
 // Get a single thing
 exports.show = function(req, res) {
-  Thing.findById(req.params.id, function (err, thing) {
-    if(err) { return handleError(res, err); }
-    if(!thing) { return res.send(404); }
-    return res.json(thing);
-  });
+    Thing.findById(req.params.id, function (err, thing) {
+      if(err) { return handleError(res, err); }
+      if(!thing) { return res.send(404); }
+      return res.json(thing);
+    });
 };
 
 // Creates a new thing in the DB.

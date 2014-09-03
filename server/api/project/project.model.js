@@ -10,6 +10,7 @@ var ProjectSchema = new Schema({
   description: String,
   date: { type: Date, default: Date.now },
   comments: [{ body: String, date: Date, active: Boolean }],
+  members: [{_userId: Number}],
   active: Boolean,
   meta: {
       votes: Number
@@ -17,3 +18,6 @@ var ProjectSchema = new Schema({
 });
 
 module.exports = mongoose.model('Project', ProjectSchema);
+
+
+

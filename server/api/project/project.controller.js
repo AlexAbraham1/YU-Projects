@@ -2,6 +2,7 @@
 
 var _ = require('lodash');
 var Project = require('./project.model');
+var User = require('../user/user.model');
 
 // Get list of projects
 exports.index = function(req, res) {
@@ -54,6 +55,6 @@ exports.destroy = function(req, res) {
   });
 };
 
-function handleError(res, err) {
-  return res.send(500, err);
-}
+  function handleError(res, err) {
+    return res.send(500, err);
+  }

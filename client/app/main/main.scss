@@ -8,7 +8,7 @@
 }
 
 #banner h1 {
-    font-size: 60px;
+    font-size: 40px;
     line-height: 1;
     letter-spacing: -1px;
 }
@@ -19,12 +19,18 @@
     color: #F5F5F5;
     text-align: center;
     text-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
-    background: #4393B9;
+    background: $brand-info;
 }
 
-.footer {
-    text-align: center;
-    padding: 30px 0;
-    margin-top: 70px;
-    border-top: 1px solid #E5E5E5;
+.thumbnail {
+  text-align: center;
+  min-height: 215px;
+
+  i {
+    font-size: 60px;
+    margin-top: 10px;
+  }
+}
+.signup--button {
+  margin: 15px;
 }
