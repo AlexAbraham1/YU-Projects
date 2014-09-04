@@ -23,10 +23,15 @@ exports.show = function(req, res) {
 
 // Creates a new project in the DB.
 exports.create = function(req, res) {
-  Project.create(req.body, function(err, project) {
-    if(err) { return handleError(res, err); }
-    return res.json(201, project);
-  });
+    var newProject = new Project({
+        name: req.body.name,
+        description: req.body.description,
+        languages: req.body.languages
+    });
+    newProject.save(function(err, project) {
+        if (err) return handleError(res, err);
+        res.json(201, project);
+    });
 };
 
 // Updates an existing project in the DB.
@@ -45,13 +50,9 @@ exports.update = function(req, res) {
 
 // Deletes a project from the DB.
 exports.destroy = function(req, res) {
-  Project.findById(req.params.id, function (err, project) {
-    if(err) { return handleError(res, err); }
-    if(!project) { return res.send(404); }
-    project.remove(function(err) {
-      if(err) { return handleError(res, err); }
+  Project.findByIdAndRemove(req.params.id, function(err, project) {
+      if(err) return res.send(500, err);
       return res.send(204);
-    });
   });
 };
 

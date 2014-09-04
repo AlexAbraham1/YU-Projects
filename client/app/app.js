@@ -5,7 +5,8 @@ angular.module('yuProjectsApp', [
   'ngResource',
   'ngSanitize',
   'ngRoute',
-  'ui.bootstrap'
+  'ui.bootstrap',
+  'ngTagsInput'
 ])
   .config(function ($routeProvider, $locationProvider, $httpProvider) {
     $routeProvider

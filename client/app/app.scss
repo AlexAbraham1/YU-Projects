@@ -1,13 +1,18 @@
-$icon-font-path: "/bower_components/bootstrap-sass-official/vendor/assets/fonts/bootstrap/";
-$fa-font-path: "/bower_components/font-awesome/fonts";
+$icon-font-path: "../bower_components/bootstrap-sass-official/vendor/assets/fonts/bootstrap/";
+$fa-font-path: "../bower_components/font-awesome/fonts";
 
 @import 'variables';
-@import 'bootstrap-sass-official/vendor/assets/stylesheets/bootstrap';
-@import 'font-awesome/scss/font-awesome';
+@import '../bower_components/bootstrap-sass-official/vendor/assets/stylesheets/bootstrap';
+@import '../bower_components/font-awesome/scss/font-awesome';
 
 /**
  * App-wide Styles
  */
+
+body {
+  height: 100%;
+  width: 100%;
+}
 
 .browsehappy {
     margin: 0.2em 0;
@@ -19,11 +24,14 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
 .help-block {
   color: darken($text-color, 25%); // lighten the text some for contrast
 }
+
 // Component styles are injected through grunt
 // injector
 @import 'account/login/login.scss';
 @import 'admin/admin.scss';
 @import 'main/main.scss';
+@import 'projects/language/language.scss';
+@import 'projects/projects.scss';
 @import 'variables.scss';
 @import 'modal/modal.scss';
 // endinjector

@@ -1,0 +1,50 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+
+<div class="container project--content">
+
+
+    <h2>Create a project!</h2>
+
+    <form ng-submit="addProject(form)" class="form" name="form" novalidate ng-show="isLoggedIn()">
+        <div class="form-group" ng-class="{ 'has-success': form.name.$valid && submitted,
+                                            'has-error': form.name.$invalid && submitted }">
+            <label>Name</label>
+            <input type="text" name="name" class="form-control" ng-model="project.name" required>
+
+            <p class="help-block" ng-show="form.name.$error.required && submitted">
+                A name is required
+            </p>
+
+        </div>
+
+        <div class="form-group" ng-class="{ 'has-success': form.name.$valid && submitted,
+                                            'has-error': form.name.$invalid && submitted }">
+            <label>Description</label>
+            <textarea name="description" cols="30" rows="10" class="form-control" ng-model="project.description" required></textarea>
+            <!--<input type="text" name="description" >-->
+
+            <p class="help-block" ng-show="form.description.$error.required && submitted">
+                A description is required
+            </p>
+        </div>
+
+        <div class="form-group">
+            <label>Languages</label>
+            <tags-input ng-model="project.languages" class="bootstrap">
+            </tags-input>
+        </div>
+
+        <button class="btn btn-info btn-lg btn-login" type="submit">
+            Add Project
+        </button>
+    </form>
+
+    <ul class="list-group">
+        <li class="list-group-item" ng-repeat="project in projects">
+            <strong>{{project.name}}</strong><br>
+            <span class="text-muted">{{project.description}}</span>
+            <a ng-click="removeProject(project)" class="trash"><span class="fa fa-trash pull-right"></span></a>
+        </li>
+    </ul>
+</div>
