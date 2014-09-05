@@ -1,28 +1,30 @@
 'use strict';
 
 angular.module('yuProjectsApp')
-    .controller('CreateProjectCtrl', function ($scope, Project, Auth) {
+    .controller('CreateProjectCtrl', function ($scope, Project, Auth, Modal, $location) {
         $scope.isLoggedIn = Auth.isLoggedIn;
-        $scope.projects = Project.query();
 
         $scope.addProject = function (form) {
             $scope.submitted = true;
-            if (form.$valid) {
+            if (form.$valid && $scope.isLoggedIn()) {
+                $scope.project.members = [];
+                $scope.project.author = $scope.project.members[0] = {
+                    name: Auth.getCurrentUser().name,
+                    email: Auth.getCurrentUser().email
+                };
                 Project.save($scope.project, function (newProject) {
-                    $scope.projects.push(newProject);
+                    Modal.popup.success({
+                        title: "Thank you for your submission!",
+                        html: '<p>We will notify you if it is approved!</p>'
+                    });
+                    $scope.submitted = false;
+                    $scope.project = null;
+                    $location.path('/projects/');
                 });
             }
 
         };
 
 
-        $scope.removeProject = function (project) {
-            console.log("project", project);
-            Project.remove({ id: project._id });
-            angular.forEach($scope.projects, function (u, i) {
-                if (u === project) {
-                    $scope.projects.splice(i, 1);
-                }
-            });
-        };
+
     });

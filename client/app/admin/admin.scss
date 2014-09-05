@@ -1,1 +1,57 @@
-.trash { color:rgb(209, 91, 71); }
+.trash {
+  color: rgb(209, 91, 71);
+}
+
+.fa-fw {
+  width: 2em;
+}
+
+.admin--sidenav {
+  li > a {
+    color: $brand-primary;
+  }
+}
+
+.widget {
+  .panel-body {
+    padding: 0px;
+  }
+
+  .list-group {
+    margin-bottom: 0;
+  }
+
+  .panel-title {
+    display: inline
+  }
+
+  .label-info {
+    float: right;
+  }
+
+  li.list-group-item {
+    border-radius: 0;
+    border: 0;
+    border-top: 1px solid $gray-light;
+  }
+
+  li.list-group-item:hover {
+    background-color: rgba(44, 62, 80, .1);
+  }
+
+  .mic-info {
+    color: #666666;
+    font-size: 11px;
+  }
+
+  .action {
+    margin-top: 5px;
+  }
+  .comment-text {
+    font-size: 12px;
+  }
+  .btn-block {
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+  }
+}

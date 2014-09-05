@@ -1,0 +1,96 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <ul class="nav nav-pills nav-stacked admin--sidenav">
+                <li><a href="/admin"><i class="fa fa-home fa-fw"></i>Home</a></li>
+                <li><a href="admin/users"><i class="fa fa-list-alt fa-fw"></i>Users</a></li>
+                <li class="active"><a href="admin/projects"><i class="fa fa-cog fa-fw"></i>Projects</a></li>
+            </ul>
+        </div>
+        <div class="col-md-9">
+            <h2>Projects</h2>
+
+            <div ng-if="!projects.length">No projects available</div>
+            <div class="well" ng-repeat="project in projects">
+                <div class="row user-row" ng-click="isCollapsed = !isCollapsed">
+                    <div class="col-md-1">
+                        <i class="fa fa-cog fa-2x"></i>
+                    </div>
+                    <div class="col-md-10">
+                        <strong>{{project.name}}</strong><br>
+                        <span class="text-muted">{{project.description}}</span>
+                    </div>
+                    <div class="col-md-1 dropdown-user">
+                        <i class="fa text-muted"
+                           ng-class="{'fa-chevron-down': !isCollapsed, 'fa-chevron-up': isCollapsed}"></i>
+                    </div>
+                </div>
+                <div class="row" collapse="!isCollapsed">
+                    <div class="col-md-10 col-md-offset-1">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Project information</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <table class="table table-condensed table-responsive table-user-information">
+                                            <tbody>
+                                            <tr>
+                                                <td>Project name:</td>
+                                                <td>{{project.name}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Project created at:</td>
+                                                <td>{{project.date | date}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Project creator:</td>
+                                                <td>
+                                                    <ul class="list-unstyled">
+                                                        <li> Name: {{project.author.name}}</li>
+                                                        <li>Email: {{project.author.email}}</li>
+                                                    </ul>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Members:</td>
+                                                <td>
+                                                    <span ng-if="!project.members.length">No members</span>
+                                                    <ul class="list-unstyled" ng-repeat="member in project.members">
+                                                        <li>Name: {{member.name}}</li>
+                                                        <li>Email: {{member.email}}</li>
+                                                    </ul>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-footer">
+                                <button class="btn btn-danger btn-xs" type="button"
+                                        tooltip="Remove this project" ng-click="deleteProject(project)"><i
+                                        class="fa fa-trash"></i>
+                                </button>
+                                <button class="btn btn-success btn-xs"
+                                        type="button"
+                                        tooltip="{{projectStatus(project)}} this project"
+                                        ng-click="toggleActivation(project)"
+                                        ng-class="{'btn-success': !project.active, 'btn-warning': project.active}">
+                                    <i class="fa "
+                                       ng-class="{'fa-check': !project.active, 'fa-times': project.active}"></i>
+                                </button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

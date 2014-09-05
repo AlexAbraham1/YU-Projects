@@ -29,9 +29,12 @@ body {
 // injector
 @import 'account/login/login.scss';
 @import 'admin/admin.scss';
+@import 'admin/projects/admin-projects.scss';
+@import 'admin/users/users.scss';
 @import 'main/main.scss';
-@import 'projects/language/language.scss';
-@import 'projects/projects.scss';
+@import 'projects/all/all-projects.scss';
+@import 'projects/create/create.scss';
+@import 'projects/single/single.scss';
 @import 'variables.scss';
 @import 'modal/modal.scss';
 // endinjector

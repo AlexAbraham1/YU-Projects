@@ -1,0 +1,34 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+<div class="container">
+    <h2>Available Projects</h2>
+
+    <div ng-if="!projects.length">No projects available</div>
+
+    <ul class="list-group">
+        <li class="list-group-item" ng-repeat="project in projects">
+            <div class="media">
+                <i class="media-object fa fa-cog fa-4x pull-left"></i>
+
+                <div class="media-body">
+                    <h4 class="media-heading">
+                        <a href="javascript:;"
+                           ng-href="/projects/{{project._id}}"
+                           class="project--name">
+                            {{project.name}}
+                        </a>
+                    </h4>
+
+                    <div class="text-muted">Created by {{project.author.name}}</div>
+                    {{project.description}}
+
+
+                    <ul class="nav nav-pills">
+                        <li ng-repeat="lang in project.languages">
+                            <span class="label label-default">{{lang}}</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>

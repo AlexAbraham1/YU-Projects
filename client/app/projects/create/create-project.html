@@ -21,7 +21,7 @@
         <div class="form-group" ng-class="{ 'has-success': form.name.$valid && submitted,
                                             'has-error': form.name.$invalid && submitted }">
             <label>Description</label>
-            <textarea name="description" cols="30" rows="10" class="form-control" ng-model="project.description" required></textarea>
+            <textarea name="description" cols="30" rows="10" class="form-control project--description" ng-model="project.description" required></textarea>
             <!--<input type="text" name="description" >-->
 
             <p class="help-block" ng-show="form.description.$error.required && submitted">
@@ -40,11 +40,4 @@
         </button>
     </form>
 
-    <ul class="list-group">
-        <li class="list-group-item" ng-repeat="project in projects">
-            <strong>{{project.name}}</strong><br>
-            <span class="text-muted">{{project.description}}</span>
-            <a ng-click="removeProject(project)" class="trash"><span class="fa fa-trash pull-right"></span></a>
-        </li>
-    </ul>
 </div>

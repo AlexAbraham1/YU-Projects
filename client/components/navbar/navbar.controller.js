@@ -13,11 +13,11 @@ angular.module('yuProjectsApp')
             'dropdown': [
                 {
                     title: 'View all projects',
-                    link: 'projects/all'
+                    link: 'projects/'
                 },
                 {
                 title: 'Create',
-                link: 'projects/create'
+                link: '/create'
             }]
         }
     ];

@@ -33,7 +33,7 @@ angular.module('yuProjectsApp')
                  * @param  {Function} del - callback, ran when delete is confirmed
                  * @return {Function}     - the function to open the modal (ex. myModalFn)
                  */
-                delete: function (del) {
+                delete: function (name, del) {
                     del = del || angular.noop;
 
                     /**
@@ -42,9 +42,7 @@ angular.module('yuProjectsApp')
                      * @param  {All}           - any additional args are passed staight to del callback
                      */
                     return function () {
-                        var args = Array.prototype.slice.call(arguments),
-                            name = args.shift(),
-                            deleteModal;
+                        var deleteModal;
 
                         deleteModal = openModal({
                             modal: {
@@ -72,7 +70,7 @@ angular.module('yuProjectsApp')
 
 
                         deleteModal.result.then(function (event) {
-                            del.apply(event, args);
+                            del.apply(event);
                         });
                     }();
                 }

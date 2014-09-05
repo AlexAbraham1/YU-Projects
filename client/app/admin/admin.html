@@ -1,12 +1,20 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
 
+
+
 <div class="container">
-  <p>The delete user and user index api routes are restricted to users with the 'admin' role.</p>
-  <ul class="list-group">
-    <li class="list-group-item" ng-repeat="user in users">
-        <strong>{{user.name}}</strong><br>
-        <span class="text-muted">{{user.email}}</span>
-        <a ng-click="delete(user)" class="trash"><span class="fa fa-trash pull-right"></span></a>
-    </li>
-  </ul>
+    <div class="row">
+        <div class="col-md-3">
+            <ul class="nav nav-pills nav-stacked admin--sidenav">
+                <li class="active"><a href="/admin"><i class="fa fa-home fa-fw"></i>Home</a></li>
+                <li><a href="admin/users"><i class="fa fa-list-alt fa-fw"></i>Users</a></li>
+                <li><a href="admin/projects"><i class="fa fa-cog fa-fw"></i>Projects</a></li>
+            </ul>
+        </div>
+        <div class="col-md-9 well">
+            Vertical admin menu
+        </div>
+    </div>
 </div>
+
+

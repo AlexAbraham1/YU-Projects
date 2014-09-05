@@ -5,21 +5,31 @@ var mongoose = require('mongoose'),
 
 var ProjectSchema = new Schema({
   name: String,
-//  author: {
-//      type: mongoose.Schema.Types.ObjectId, ref: 'User'
-//  },
+  author: {
+      name: String,
+      email: String
+  },
   description: String,
   date: { type: Date, default: Date.now },
-  languages: String
-//  comments: [{ body: String, date: Date, active: Boolean }],
-////  members: [{
-////      type: mongoose.Schema.Types.ObjectId, ref: 'User'
-////  }],
-//  active: Boolean,
-//  votes: {
-//      positive: Number,
-//      negative: Number
-//  }
+  languages: [String],
+  comments: [{
+      body: String,
+      date: Date,
+      active: Boolean,
+      by: {
+          name: String,
+          email: String
+      }
+  }],
+  members: [{
+      name: String,
+      email: String
+  }],
+  active: {type: Boolean, default: false },
+  votes: {
+      positive: Number,
+      negative: Number
+  }
 });
 
 module.exports = mongoose.model('Project', ProjectSchema);
