@@ -12,15 +12,15 @@ var ProjectSchema = new Schema({
   description: String,
   date: { type: Date, default: Date.now },
   languages: [String],
-  comments: [{
-      body: String,
-      date: Date,
-      active: Boolean,
-      by: {
-          name: String,
-          email: String
-      }
-  }],
+//  comments: [{
+//      body: String,
+//      date: Date,
+//      active: Boolean,
+//      by: {
+//          name: String,
+//          email: String
+//      }
+//  }],
   members: [{
       name: String,
       email: String
