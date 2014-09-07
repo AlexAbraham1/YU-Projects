@@ -2,5 +2,11 @@
 
 angular.module('yuProjectsApp')
   .controller('SingleCtrl', function ($scope, Project, $routeParams) {
-    $scope.project = Project.get({id: $routeParams.projectId});
+    $scope.ready = false;
+
+    Project.get({id: $routeParams.projectId}, function (project) {
+      $scope.project = project;
+      $scope.ready = true;
+    });
+
   });

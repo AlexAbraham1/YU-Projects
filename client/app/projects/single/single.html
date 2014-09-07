@@ -34,27 +34,34 @@
 
     </div>
 
-    <ul class="list-group">
-        <li class="row">
-            <div class="col-md-10 col-md-offset-1">
-                <form ng-submit="addComment(form)">
-                    <div class="form-group">
-                        <label for="comment">Comment</label>
-                        <textarea class="form-control" rows="3" id="comment"></textarea>
-                    </div>
-                </form>
-            </div>
+  <disqus disqus-shortname="yuprojects"
+              disqus-identifier="projects/{{ project.name }}"
+              disqus-url="http://localhost:9000/projects/{{ project._id }}"
+              disqus-title="{{ project.name }}"
+              ready-to-bind="{{ready}}">
+  </disqus>
 
-        </li>
-        <li class="list-group-item row" ng-repeat="comment in project.comments">
-            <div class="media">
-                <i class="media-object fa fa-user fa-2x pull-left"></i>
-                <div class="media-body">
-                    Created by {{comment.body}}
-                </div>
-            </div>
-        </li>
-    </ul>
+    <!--<ul class="list-group">-->
+        <!--<li class="row">-->
+            <!--<div class="col-md-10 col-md-offset-1">-->
+                <!--<form ng-submit="addComment(form)">-->
+                    <!--<div class="form-group">-->
+                        <!--<label for="comment">Comment</label>-->
+                        <!--<textarea class="form-control" rows="3" id="comment"></textarea>-->
+                    <!--</div>-->
+                <!--</form>-->
+            <!--</div>-->
+
+        <!--</li>-->
+        <!--<li class="list-group-item row" ng-repeat="comment in project.comments">-->
+            <!--<div class="media">-->
+                <!--<i class="media-object fa fa-user fa-2x pull-left"></i>-->
+                <!--<div class="media-body">-->
+                    <!--Created by {{comment.body}}-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</li>-->
+    <!--</ul>-->
 
 
 </div>
