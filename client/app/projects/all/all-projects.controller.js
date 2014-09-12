@@ -12,6 +12,8 @@ angular.module('yuProjectsApp')
       } else if (!currentUser.voted.direction) {
         project.votes += 2;
       }
+      //TODO allow for rating multiple project
+      //Push to array of voted
       Project.update({id: project._id}, project);
       Auth.getCurrentUser().voted =  {direction: true};
 

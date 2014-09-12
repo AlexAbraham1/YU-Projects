@@ -17,9 +17,12 @@
     <div class="col-lg-12">
       <h2 class="page-header">Features:</h2>
       <div class="row">
-        <div class="col-sm-6 col-md-4" ng-repeat="feature in features">
-          <div class="thumbnail">
-            <i class="fa" ng-class="feature.icon"></i>
+        <div class="col-sm-6 col-md-4" ng-repeat="feature in features" >
+          <div class="thumbnail" ng-class="'thumb-' + feature.bg">
+            <figure class="img-circle img-thumbnail thumb-icon">
+              <i class="fa" ng-class="feature.icon"></i>
+            </figure>
+
             <div class="caption">
               <h3>{{feature.name}}</h3>
               <p>{{feature.info}}</p>

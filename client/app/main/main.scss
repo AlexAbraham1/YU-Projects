@@ -30,6 +30,39 @@
     font-size: 60px;
     margin-top: 10px;
   }
+
+  .caption {
+    color: #FFF;
+  }
+
+  &.thumb-primary {
+    background-color: $brand-primary;
+  }
+
+  &.thumb-success {
+    background-color: $brand-success;
+
+    .thumb-icon {
+      color: $brand-success;
+    }
+  }
+
+  &.thumb-danger {
+    background-color: $brand-danger;
+
+    .thumb-icon {
+      color: $brand-danger;
+    }
+  }
+
+}
+
+.thumb-icon {
+  width: 100px;
+  height: 100px;
+  line-height: 8;
+  margin-top: -50px;
+  border: none;
 }
 .signup--button {
   margin-bottom: 20px;
