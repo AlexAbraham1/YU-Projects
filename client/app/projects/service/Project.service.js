@@ -20,6 +20,18 @@ angular.module('yuProjectsApp')
           params: {
             controller: 'comment'
           }
+        },
+        'addMember': {
+          method: 'POST',
+          params: {
+            controller: 'member'
+          }
+        },
+        'deleteMember': {
+          method: 'DELETE',
+          params: {
+            controller: 'member'
+          }
         }
       });
   });

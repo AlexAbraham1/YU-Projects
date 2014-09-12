@@ -14,7 +14,6 @@ exports.index = function (req, res) {
     if (err) {
       return handleError(res, err);
     }
-    console.log(projects);
     return res.json(200, projects);
   });
 };
@@ -61,7 +60,9 @@ exports.update = function (req, res) {
     if (!project) {
       return res.send(404);
     }
+
     var updated = _.merge(project, req.body);
+    console.log(updated);
     updated.save(function (err) {
       if (err) {
         return handleError(res, err);
@@ -131,6 +132,48 @@ exports.deleteComment = function (req, res) {
     });
 };
 
+exports.addMember = function (req, res) {
+  var member = req.body;
+      Project.findById(req.params.id, function (err, project) {
+        if (err) {
+          return handleError(res, err);
+        }
+        if (!project) {
+          return res.send(404);
+        }
+        project.members.push(member);
+        project.save(function (err) {
+          if (err) {
+            return handleError(res, err);
+          }
+          return res.json(200, member);
+        });
+      });
+};
+
+exports.deleteMember = function (req, res) {
+  Project.findById(req.params.id, function (err, project) {
+    if (err) {
+      return handleError(res, err);
+    }
+    if (!project) {
+      return res.send(404);
+    }
+    var member = _.find(project.members, function (com) {
+      return com._id == req.params.memberId;
+    });
+    var idx = project.members.indexOf(member);
+    if (idx > -1) {
+      project.members.splice(idx, 1);
+    }
+    project.save(function (err) {
+      if (err) {
+        return handleError(res, err);
+      }
+      return res.send(204);
+    });
+  });
+};
 
 function handleError(res, err) {
   return res.send(500, err);

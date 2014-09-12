@@ -11,7 +11,6 @@ angular.module('yuProjectsApp')
 
     $scope.addComment = function (form) {
       $scope.submitted = true;
-      console.log(form);
       if (form.$valid) {
         var comment = {
           body: $scope.post.body,
@@ -21,7 +20,7 @@ angular.module('yuProjectsApp')
             email: Auth.getCurrentUser().email
           }
         };
-        Project.addComment({id: $scope.project._id}, comment, function(com) {
+        Project.addComment({id: $scope.project._id}, comment, function (com) {
           Logger.logSuccess("Comment successfully added!");
           $scope.project.comments.push(com);
           form.$setPristine();
@@ -32,14 +31,19 @@ angular.module('yuProjectsApp')
     };
 
     $scope.join = function () {
-      if (!_.contains($scope.project.members, Auth.getCurrentUser())) {
-        $scope.project.members.push(Auth.getCurrentUser());
-        Project.update({id: $routeParams.projectId}, $scope.project);
-      }
+      var member = {
+        _id: Auth.getCurrentUser()._id,
+        name: Auth.getCurrentUser().name,
+        email: Auth.getCurrentUser().email
+      };
+      Project.addMember({id: $scope.project._id}, member, function (mem) {
+        Logger.logSuccess("Successfully became a project member!");
+        $scope.project.members.push(mem);
+      });
     };
 
     $scope.deleteComment = function (comment) {
-      Project.deleteComment({id: $scope.project._id, secondController: comment._id}, function() {
+      Project.deleteComment({id: $scope.project._id, secondController: comment._id}, function () {
         if ($scope.project.comments.length) {
           var idx = $scope.project.comments.indexOf(comment);
           if (idx > -1) {
@@ -54,7 +58,7 @@ angular.module('yuProjectsApp')
     };
 
     $scope.canJoin = function () {
-      var isMember = _.some($scope.project.members, function(member){
+      var isMember = _.some($scope.project.members, function (member) {
         return (member._id === $scope.user);
       });
       return (Auth.isLoggedIn() && !isMember);

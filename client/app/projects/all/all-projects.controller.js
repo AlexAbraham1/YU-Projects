@@ -7,19 +7,23 @@ angular.module('yuProjectsApp')
     $scope.projects = Project.query({active: true, req: 'name description languages author votes'});
 
     $scope.voteUp = function (project) {
-      if (!currentUser.voted || !currentUser.voted.direction) {
+      if (!currentUser.voted) {
         project.votes++;
-        Project.update({id: project._id}, project);
-        Auth.getCurrentUser().voted = {direction: true};
+      } else if (!currentUser.voted.direction) {
+        project.votes += 2;
       }
+      Project.update({id: project._id}, project);
+      Auth.getCurrentUser().voted =  {direction: true};
 
     };
 
     $scope.voteDown = function (project) {
-      if (!currentUser.voted || currentUser.voted.direction) {
+      if (!currentUser.voted) {
         project.votes--;
-        Project.update({id: project._id}, project);
-        Auth.getCurrentUser().voted =  {direction: false};
+      } else if (currentUser.voted.direction) {
+        project.votes -= 2;
       }
+      Project.update({id: project._id}, project);
+      Auth.getCurrentUser().voted =  {direction: false};
     };
   });
