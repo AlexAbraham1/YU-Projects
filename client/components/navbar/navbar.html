@@ -14,18 +14,21 @@
         </div>
         <div collapse="isCollapsed" class="navbar-collapse collapse" id="navbar-main">
             <ul class="nav navbar-nav">
-                <li ng-repeat="item in menu" ng-class="{active: isActive(item.link)}" ng-if="!item.dropdown">
-                    <a ng-href="{{item.link}}">{{item.title}}</a>
-                </li>
-                <li ng-repeat="item in menu" class="dropdown"
-                    ng-class="{active: isActive(item.link)}"
-                    ng-if="item.dropdown"
-                    on-toggle="toggled(open)">
-                    <a href class="dropdown-toggle">{{item.title}} <i class="fa fa-caret-down"></i></a>
+              <li ng-class="{active: isActive(item.link)}">
+                <a ng-href="/">Home</a>
+              </li>
+                <li class="dropdown" ng-class="{active: isActive(item.link)}" on-toggle="toggled(open)">
+                    <a href class="dropdown-toggle">Projects <i class="fa fa-caret-down"></i></a>
                     <ul class="dropdown-menu">
-                        <li ng-repeat="choice in item.dropdown">
-                            <a ng-href="{{choice.link}}">{{choice.title}}</a>
+                        <li>
+                            <a ng-href="/projects">All Projects</a>
                         </li>
+                      <li ng-show="isLoggedIn()">
+                        <a ng-href="/create">Create a project</a>
+                      </li>
+                      <li ng-show="hasSubmitted()">
+                        <a ng-href="/submitted">Edit a submission</a>
+                      </li>
                     </ul>
 
                 </li>

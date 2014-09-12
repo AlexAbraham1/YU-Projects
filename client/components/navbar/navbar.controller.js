@@ -2,25 +2,6 @@
 
 angular.module('yuProjectsApp')
   .controller('NavbarCtrl', function ($scope, $location, Auth) {
-    $scope.menu = [
-        {
-            'title': 'Home',
-            'link': '/'
-        },
-        {
-            'title': 'Projects',
-            'link': '/projects',
-            'dropdown': [
-                {
-                    title: 'View all projects',
-                    link: 'projects/'
-                },
-                {
-                title: 'Create',
-                link: '/create'
-            }]
-        }
-    ];
 
     $scope.isCollapsed = true;
     $scope.isLoggedIn = Auth.isLoggedIn;
@@ -30,6 +11,12 @@ angular.module('yuProjectsApp')
     $scope.logout = function() {
       Auth.logout();
       $location.path('/login');
+    };
+
+    $scope.hasSubmitted = function () {
+//      if (Auth.isLoggedIn()) {
+//        Project.get()
+//      }
     };
 
     $scope.isActive = function(route) {

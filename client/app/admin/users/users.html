@@ -2,75 +2,82 @@
 
 
 <div class="container">
-    <div class="row">
-        <div class="col-md-3">
-            <ul class="nav nav-pills nav-stacked admin--sidenav">
-                <li><a href="/admin"><i class="fa fa-home fa-fw"></i>Home</a></li>
-                <li class="active"><a href="admin/users"><i class="fa fa-list-alt fa-fw"></i>Users</a></li>
-                <li><a href="admin/projects"><i class="fa fa-cog fa-fw"></i>Projects</a></li>
-            </ul>
-        </div>
-        <div class="col-md-9">
-            <h2>Users</h2>
-            <div class="well" ng-repeat="user in users">
-                <div class="row user-row" ng-click="isCollapsed = !isCollapsed">
-                    <div class="col-md-1">
-                       <i class="fa fa-user fa-2x"></i>
-                    </div>
-                    <div class="col-md-10">
-                        <strong>{{user.name}}</strong><br>
-                        <span class="text-muted">User level: {{user.role}}</span>
-                    </div>
-                    <div class="col-md-1 dropdown-user">
-                        <i class="fa text-muted" ng-class="{'fa-chevron-down': !isCollapsed, 'fa-chevron-up': isCollapsed}"></i>
-                    </div>
-                </div>
-
-
-                <div class="row" collapse="!isCollapsed">
-                    <div class="col-md-10 col-md-offset-1">
-                        <div class="panel panel-primary">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">User information</h3>
-                            </div>
-                            <div class="panel-body">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <table class="table table-condensed table-responsive table-user-information">
-                                            <tbody>
-                                            <tr>
-                                                <td>User namae:</td>
-                                                <td>{{user.name}}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>User level:</td>
-                                                <td>{{user.role}}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>User's email:</td>
-                                                <td>{{user.email}}</td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="panel-footer">
-                                <button class="btn btn-danger btn-xs" type="button"
-                                        tooltip="Remove this user" ng-click="delete(user)"><i class="fa fa-trash"></i>
-                                </button>
-                                    <button class="btn btn-warning btn-xs" type="button"
-                                            tooltip="Edit this user"><i class="fa fa-edit"></i></button>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-        </div>
+  <div class="row">
+    <div class="col-md-3">
+      <ul class="nav nav-pills nav-stacked admin--sidenav">
+        <li><a href="/admin"><i class="fa fa-home fa-fw"></i>Home</a></li>
+        <li class="active"><a href="admin/users"><i class="fa fa-list-alt fa-fw"></i>Users</a></li>
+        <li><a href="admin/projects"><i class="fa fa-cog fa-fw"></i>Projects</a></li>
+      </ul>
     </div>
+    <div class="col-md-9">
+      <h2>Users</h2>
+
+      <div class="well" ng-repeat="user in users">
+        <div class="row user-row" ng-click="isCollapsed = !isCollapsed">
+          <div class="col-xs-1">
+            <i class="fa fa-user fa-2x"></i>
+          </div>
+          <div class="col-xs-10">
+            <strong>{{user.name}}</strong><br>
+                        <span class="text-muted">User level: {{user.role}}
+                        </span>
+          </div>
+          <div class="col-xs-1 dropdown-user">
+            <i class="fa text-muted" ng-class="{'fa-chevron-down': !isCollapsed, 'fa-chevron-up': isCollapsed}"></i>
+          </div>
+        </div>
+
+
+        <div class="row" collapse="!isCollapsed">
+          <div class="col-md-10 col-md-offset-1">
+            <div class="panel panel-primary">
+              <div class="panel-heading">
+                <h3 class="panel-title">User information</h3>
+              </div>
+              <div class="panel-body">
+                <div class="row">
+                  <div class="col-md-12">
+                    <table class="table table-condensed table-responsive table-user-information">
+                      <tbody>
+                      <tr>
+                        <td>User name:</td>
+                        <td>{{user.name}}</td>
+                      </tr>
+                      <tr>
+                        <td>User level:</td>
+                        <td ng-if="user.isEditing">
+                          <select ng-model="userRole" ng-change="submitEdit(user, userRole)"
+                                  ng-options="role as role.label for role in roles">
+                          </select>
+                        </td>
+                        <td ng-if="!user.isEditing">{{user.role}}</td>
+                      </tr>
+                      <tr>
+                        <td>User's email:</td>
+                        <td>{{user.email}}</td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <div class="panel-footer">
+                <button class="btn btn-danger btn-xs" type="button"
+                        tooltip="Remove this user" ng-click="delete(user)"><i class="fa fa-trash"></i>
+                </button>
+                <button class="btn btn-warning btn-xs" type="button"
+                        tooltip="Edit this user" ng-click="edit(user)"><i class="fa fa-edit"></i></button>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
 </div>
 
 

@@ -1,67 +1,90 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
 
 <div class="container">
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h3 class="panel-title">{{project.name}}</h3>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title"><i class="fa fa-cog"></i>{{project.name}}</h3>
+    </div>
+    <div class="panel-body row">
+      <div class="col-md-10">
+
+        {{project.description}}
+        <div class="clearfix"></div>
+        <br>
+        <ul class="nav nav-pills">
+          <li>Languages:</li>
+          <li ng-repeat="lang in project.languages">
+            <span class="label label-primary">{{lang}}</span>
+          </li>
+        </ul>
+        <br>
+
+        <div ng-if="canJoin()">
+          Join Project
         </div>
-        <div class="panel-body row">
 
-            <div class="col-md-2">
-                <div class="list-group-item">
-                    <a href ng-click="activateProject(project)" class="text-success" ng-show="!project.active">
-                        <span class="fa fa-thumbs-o-up"></span>Activate</a>
-                    <a href ng-href="/projects/{{project._id}}" ng-show="project.active">Activated</a>
-                </div>
-                <div class="list-group-item">
-                    <a href ng-click="deleteProject(project)" class="text-danger">
-                        <span class="fa fa-trash"></span>Delete</a>
-                </div>
-            </div>
+        <ul class="list-group row center-block list-unstyled">
+          <li><i class="fa fa-users"></i> Project members:</li>
+          <li class="list-group-item col-xs-2" ng-repeat="member in project.members">
+            <i class="fa fa-user"></i>
+            {{member.name}}
+          </li>
+        </ul>
 
-            <div class="col-md-10">
-                {{project.description}}
-                <ul class="nav nav-pills">
-                    <li ng-repeat="lang in project.languages">
-                        <span class="label label-default">{{lang}}</span>
-                    </li>
-                </ul>
-            </div>
-
-
-        </div>
+      </div>
 
 
     </div>
 
-  <disqus disqus-shortname="yuprojects"
-              disqus-identifier="projects/{{ project.name }}"
-              disqus-url="http://localhost:9000/projects/{{ project._id }}"
-              disqus-title="{{ project.name }}"
-              ready-to-bind="{{ready}}">
-  </disqus>
 
-    <!--<ul class="list-group">-->
-        <!--<li class="row">-->
-            <!--<div class="col-md-10 col-md-offset-1">-->
-                <!--<form ng-submit="addComment(form)">-->
-                    <!--<div class="form-group">-->
-                        <!--<label for="comment">Comment</label>-->
-                        <!--<textarea class="form-control" rows="3" id="comment"></textarea>-->
-                    <!--</div>-->
-                <!--</form>-->
-            <!--</div>-->
+  </div>
 
-        <!--</li>-->
-        <!--<li class="list-group-item row" ng-repeat="comment in project.comments">-->
-            <!--<div class="media">-->
-                <!--<i class="media-object fa fa-user fa-2x pull-left"></i>-->
-                <!--<div class="media-body">-->
-                    <!--Created by {{comment.body}}-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</li>-->
-    <!--</ul>-->
+  <h4 id="addComment">Leave a Comment:</h4>
 
+  <p class="well" ng-if="!isLoggedIn()">Please <a href="/login">sign in</a> to add comments!</p>
 
+  <div class="well" ng-if="isLoggedIn()">
+    <div class="media">
+      <i class="fa fa-user media-object fa-2x img-thumbnail pull-left"></i>
+
+      <div class="media-body">
+        <form ng-submit="addComment(form)" class="form" name="form" novalidate>
+          <div class="form-group" ng-class="{ 'has-success': form.post.$valid && submitted,
+                                            'has-error': form.post.$invalid && submitted }">
+            <textarea ng-model="post.body" class="form-control project--description" name="post"
+                      rows="2" placeholder="Add a comment..." required></textarea>
+
+            <p class="help-block" ng-show="form.post.$error.required && submitted">
+              A comment is required
+            </p>
+          </div>
+          <button type="submit" class="btn btn-primary btn-sm pull-right">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <p ng-if="!project.comments.length"> No comments yet.</p>
+  <ul class="media-list comments" ng-repeat="comment in project.comments">
+    <li class="media">
+      <i class="fa fa-user media-object fa-2x img-thumbnail pull-left"></i>
+
+      <div class="media-body">
+        <h5 class="media-heading pull-left">{{comment.by.name}}</h5>
+
+        <div class="comment-info pull-left">
+          <div class="btn btn-danger btn-xs"
+               tooltip="Delete comment as administrator"
+               ng-if="canEdit(comment)"
+               ng-click="deleteComment(comment)">
+            <i class="fa fa-times"></i>
+          </div>
+          <div class="btn btn-default btn-xs"><i class="fa fa-clock-o"></i> Posted: {{comment.date | date}}</div>
+        </div>
+        <br class="clearfix">
+
+        <p class="well">{{comment.body}}</p>
+      </div>
+    </li>
+  </ul>
 </div>

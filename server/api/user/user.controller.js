@@ -3,6 +3,7 @@
 var User = require('./user.model');
 var passport = require('passport');
 var config = require('../../config/environment');
+var email = require('../../components/email');
 var jwt = require('jsonwebtoken');
 
 var validationError = function(res, err) {
@@ -27,9 +28,16 @@ exports.create = function (req, res, next) {
   var newUser = new User(req.body);
   newUser.provider = 'local';
   newUser.role = 'user';
+
   newUser.save(function(err, user) {
     if (err) return validationError(res, err);
     var token = jwt.sign({_id: user._id }, config.secrets.session, { expiresInMinutes: 60*5 });
+    email.sendEmail({
+      text: 'hello',
+      subject: 'Thank you for signing up!',
+      to: newUser.name + '<' + newUser.email + '>',
+      html: email.signupHTML
+    });
     res.json({ token: token });
   });
 };
@@ -76,6 +84,21 @@ exports.changePassword = function(req, res, next) {
     } else {
       res.send(403);
     }
+  });
+};
+
+
+/**
+ * Change a users role
+ */
+exports.changeRole = function(req, res, next) {
+  User.findById(req.body.user, function (err, user) {
+      user.role = String(req.body.newRole);
+    console.log(user);
+      user.save(function(err) {
+        if (err) return validationError(res, err);
+        res.send(200);
+      });
   });
 };
 
