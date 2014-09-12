@@ -20,7 +20,11 @@
                         <i class="fa fa-cog fa-2x"></i>
                     </div>
                     <div class="col-xs-10">
-                        <strong>{{project.name}}</strong><br>
+                        <strong>{{project.name}}</strong>
+                        <span ng-class="{'text-danger': !project.active, 'text-success': project.active}">
+                          {{getStatus(project)}}
+                        </span>
+                      <br>
                         <span class="text-muted">{{project.description}}</span>
                     </div>
                     <div class="col-xs-1 dropdown-user">

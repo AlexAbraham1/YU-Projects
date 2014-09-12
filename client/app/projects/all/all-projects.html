@@ -1,22 +1,22 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
 
 <div class="container all-projects">
-    <div class="well">
-      <h1 class="text-center">Available Projects</h1>
+  <div class="well">
+    <h1 class="text-center">Available Projects</h1>
 
-      <div ng-if="!projects.length" class="text-center">
-        No projects available
-        Why don't you
+    <div ng-if="!projects.length" class="text-center">
+      No projects available
+      Why don't you
         <span ng-hide="isLoggedIn()">
           <a href="/signup">Signup</a> or <a href="/login">Login</a> to create a project
         </span>
          <span ng-show="isLoggedIn()">
           <a href="/create">Create a project</a>
         </span>
-      </div>
-      <div class="list-group">
-        <div class="list-group-item" ng-repeat="project in projects">
-          <div class="row">
+    </div>
+    <div class="list-group">
+      <div class="list-group-item" ng-repeat="project in projects">
+        <div class="row">
           <div class="media col-md-3">
             <figure class="pull-left">
               <i class="media-object img-rounded img-responsive fa fa-cog project-icon"></i>
@@ -35,16 +35,14 @@
             </ul>
             </p>
             <br>
-            <a type="button" class="btn btn-primary" ng-href="/projects/{{project._id}}">View Project</a>
-          </div>
-          <div class="col-md-3 text-center">
-            <h2> {{project.votes || 0}} votes </h2>
 
+          </div>
+          <div class="col-md-3 text-center" style="margin-top: 50px">
+            <!--<h2> {{project.votes || 0}} votes </h2>-->
             <div class="row">
-              <button type="button" class="btn btn-sm btn-success" ng-click="voteUp(project)"
-                      tooltip="Vote positively for the project" tooltip-placement="bottom"><i class="fa fa-thumbs-up"></i></button>
-              <button type="button" class="btn btn-sm btn-danger" ng-click="voteDown(project)"
-                      tooltip="Vote negatively for the project" tooltip-placement="bottom"><i class="fa fa-thumbs-down"></i></button>
+              <!--<button type="button" class="btn btn-success" ng-click="vote(project)"-->
+              <!--tooltip="Vote for this project" tooltip-placement="bottom">Vote</button>-->
+              <a type="button" class="btn btn-primary" ng-href="/projects/{{project._id}}">View Project</a>
             </div>
           </div>
         </div>

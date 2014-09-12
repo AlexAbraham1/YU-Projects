@@ -6,26 +6,26 @@ angular.module('yuProjectsApp')
     var currentUser = Auth.getCurrentUser();
     $scope.projects = Project.query({active: true, req: 'name description languages author votes'});
 
-    $scope.voteUp = function (project) {
-      if (!currentUser.voted) {
-        project.votes++;
-      } else if (!currentUser.voted.direction) {
-        project.votes += 2;
+    $scope.vote = function (project, direction) {
+      var vote = _.find(currentUser.votes, function(v){
+        return v.projectId == project._id;
+      });
+      if (!Auth.getCurrentUser().votes) Auth.getCurrentUser().votes = [];
+      if (direction === 'up') {
+        if (!vote) project.votes++;
+        else if (!vote.direction && vote)  project.votes += 2;
+        Auth.getCurrentUser().votes.push({
+          projectId: project._id,
+          direction: true
+        });
+      } else if (direction === 'down') {
+        if (!vote) project.votes--;
+        else if (vote.direction && vote)  project.votes -= 2;
+        Auth.getCurrentUser().votes.push({
+          projectId: project._id,
+          direction: false
+        });
       }
-      //TODO allow for rating multiple project
-      //Push to array of voted
       Project.update({id: project._id}, project);
-      Auth.getCurrentUser().voted =  {direction: true};
-
-    };
-
-    $scope.voteDown = function (project) {
-      if (!currentUser.voted) {
-        project.votes--;
-      } else if (currentUser.voted.direction) {
-        project.votes -= 2;
-      }
-      Project.update({id: project._id}, project);
-      Auth.getCurrentUser().voted =  {direction: false};
     };
   });

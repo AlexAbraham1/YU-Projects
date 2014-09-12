@@ -5,6 +5,7 @@ var Project = require('./project.model');
 var User = require('../user/user.model');
 var auth = require('../../auth/auth.service');
 var request = require('request');
+var email = require('../../components/email');
 
 // Get list of projects
 exports.index = function (req, res) {
@@ -42,8 +43,20 @@ exports.create = function (req, res) {
     languages: languages,
     votes: 0
   });
+
+
   newProject.save(function (err, project) {
     if (err) return handleError(res, err);
+    User.find({'role': 'admin'}, function (err, admins) {
+      if (err) return handleError(res, err);
+      _.forEach(admins, function (admin) {
+        email.sendEmail({
+          subject: 'New project has been added',
+          to: admin.name + '<' + admin.email + '>',
+          html: email.newProjectHTML
+        });
+      });
+    });
     res.json(201, project);
   });
 };
@@ -62,7 +75,6 @@ exports.update = function (req, res) {
     }
 
     var updated = _.merge(project, req.body);
-    console.log(updated);
     updated.save(function (err) {
       if (err) {
         return handleError(res, err);
@@ -123,32 +135,32 @@ exports.deleteComment = function (req, res) {
     if (idx > -1) {
       project.comments.splice(idx, 1);
     }
-      project.save(function (err) {
-        if (err) {
-          return handleError(res, err);
-        }
-        return res.send(204);
-      });
+    project.save(function (err) {
+      if (err) {
+        return handleError(res, err);
+      }
+      return res.send(204);
     });
+  });
 };
 
 exports.addMember = function (req, res) {
   var member = req.body;
-      Project.findById(req.params.id, function (err, project) {
-        if (err) {
-          return handleError(res, err);
-        }
-        if (!project) {
-          return res.send(404);
-        }
-        project.members.push(member);
-        project.save(function (err) {
-          if (err) {
-            return handleError(res, err);
-          }
-          return res.json(200, member);
-        });
-      });
+  Project.findById(req.params.id, function (err, project) {
+    if (err) {
+      return handleError(res, err);
+    }
+    if (!project) {
+      return res.send(404);
+    }
+    project.members.push(member);
+    project.save(function (err) {
+      if (err) {
+        return handleError(res, err);
+      }
+      return res.json(200, member);
+    });
+  });
 };
 
 exports.deleteMember = function (req, res) {

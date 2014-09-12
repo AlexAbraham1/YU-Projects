@@ -15,7 +15,9 @@ angular.module('yuProjectsApp')
 
     $scope.submitEdit = function (user, userRole) {
       user.role = userRole.value;
-      User.changeRole({id: user._id}, {user: user._id , newRole: userRole.value});
+      User.changeRole({id: user._id}, {user: user._id , newRole: userRole.value}, function () {
+        Logger.logSuccess("Successfully changed user's role");
+      });
     };
 
     $scope.delete = function (user) {
