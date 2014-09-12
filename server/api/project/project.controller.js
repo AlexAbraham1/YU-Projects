@@ -41,7 +41,7 @@ exports.create = function (req, res) {
     members: req.body.members,
     description: req.body.description,
     languages: languages,
-    votes: 100
+    votes: 0
   });
   newProject.save(function (err, project) {
     if (err) return handleError(res, err);
