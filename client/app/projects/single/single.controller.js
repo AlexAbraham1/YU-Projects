@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('yuProjectsApp')
-  .controller('SingleCtrl', function ($scope, Project, $routeParams, Auth) {
+  .controller('SingleCtrl', function ($scope, Project, $routeParams, Auth, Logger) {
     $scope.isLoggedIn = Auth.isLoggedIn;
     $scope.user = Auth.getCurrentUser()._id;
     $scope.project = Project.get({id: $routeParams.projectId});
@@ -22,7 +22,11 @@ angular.module('yuProjectsApp')
           }
         };
         Project.addComment({id: $scope.project._id}, comment, function(com) {
+          Logger.logSuccess("Comment successfully added!");
           $scope.project.comments.push(com);
+          form.$setPristine();
+          form.post = null;
+          $scope.post = null;
         });
       }
     };
