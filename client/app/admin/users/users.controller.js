@@ -11,6 +11,10 @@ angular.module('yuProjectsApp')
 
     $scope.edit = function (user) {
       user.isEditing = !user.isEditing;
+      if (user.isEditing) {
+        var idx = _.indexOf($scope.roles, _.find($scope.roles, {value: user.role}));
+        $scope.userRole = $scope.roles[idx];
+      }
     };
 
     $scope.submitEdit = function (user, userRole) {
