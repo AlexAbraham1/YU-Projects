@@ -19,9 +19,6 @@
         </ul>
         <br>
 
-        <div ng-if="canJoin()">
-          Join Project
-        </div>
 
         <ul class="list-group row center-block list-unstyled">
           <li><i class="fa fa-users"></i> Project members:</li>
@@ -31,6 +28,10 @@
           </li>
         </ul>
 
+
+        <div ng-if="canJoin()">
+          <button type="button" class="btn btn-success" ng-click="join()">Join this Project</button>
+        </div>
       </div>
 
 

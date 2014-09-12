@@ -82,10 +82,10 @@ exports.destroy = function (req, res) {
 
 exports.addComment = function (req, res) {
   var comment = req.body;
-//  var expletiveAPI = "http://www.purgomalum.com/service/json?text=";
-//  request.get(expletiveAPI + req.body.body, function (error, response, body) {
-//    if (!error && response.statusCode == 200 && !body.error) {
-//      comment.body = JSON.parse(body).result;
+  var expletiveAPI = "http://www.purgomalum.com/service/json?text=";
+  request.get(expletiveAPI + req.body.body, function (error, response, body) {
+    if (!error && response.statusCode == 200 && !body.error) {
+      comment.body = JSON.parse(body).result;
       Project.findById(req.params.id, function (err, project) {
         if (err) {
           return handleError(res, err);
@@ -101,10 +101,10 @@ exports.addComment = function (req, res) {
           return res.json(200, comment);
         });
       });
-//    } else {
-//      res.send(500);
-//    }
-//  });
+    } else {
+      res.send(500);
+    }
+  });
 };
 
 exports.deleteComment = function (req, res) {

@@ -27,6 +27,13 @@ angular.module('yuProjectsApp')
       }
     };
 
+    $scope.join = function () {
+      if (!_.contains($scope.project.members, Auth.getCurrentUser())) {
+        $scope.project.members.push(Auth.getCurrentUser());
+        Project.update({id: $routeParams.projectId}, $scope.project);
+      }
+    };
+
     $scope.deleteComment = function (comment) {
       Project.deleteComment({id: $scope.project._id, secondController: comment._id}, function() {
         if ($scope.project.comments.length) {
@@ -46,7 +53,6 @@ angular.module('yuProjectsApp')
       var isMember = _.some($scope.project.members, function(member){
         return (member._id === $scope.user);
       });
-      console.log(isMember);
-      return (Auth.isLoggedIn() && isMember);
+      return (Auth.isLoggedIn() && !isMember);
     };
   });
