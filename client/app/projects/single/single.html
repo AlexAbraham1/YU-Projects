@@ -29,7 +29,7 @@
         </ul>
 
 
-        <div ng-if="canJoin()">
+        <div ng-show="isLoggedIn() && !isMember">
           <button type="button" class="btn btn-success" ng-click="join()">Join this Project</button>
         </div>
       </div>

@@ -4,10 +4,13 @@ angular.module('yuProjectsApp')
   .controller('SingleCtrl', function ($scope, Project, $routeParams, Auth, Logger) {
     $scope.isLoggedIn = Auth.isLoggedIn;
     $scope.user = Auth.getCurrentUser()._id;
-    $scope.project = Project.get({id: $routeParams.projectId});
+    $scope.project = Project.get({id: $routeParams.projectId}, function () {
+      $scope.isMember = _.some($scope.project.members, function(member){
+        if (_.contains(member, Auth.getCurrentUser().name)) return true;
+      });
+    });
     $scope.post = {};
     $scope.errors = {};
-
 
     $scope.addComment = function (form) {
       $scope.submitted = true;
@@ -39,6 +42,7 @@ angular.module('yuProjectsApp')
       Project.addMember({id: $scope.project._id}, member, function (mem) {
         Logger.logSuccess("Successfully became a project member!");
         $scope.project.members.push(mem);
+        $scope.isMember = true;
       });
     };
 
@@ -55,12 +59,5 @@ angular.module('yuProjectsApp')
 
     $scope.canEdit = function (comment) {
       return Auth.isAdmin() || (comment.by._id == Auth.getCurrentUser()._id);
-    };
-
-    $scope.canJoin = function () {
-      var isMember = _.some($scope.project.members, function (member) {
-        return (member._id === $scope.user);
-      });
-      return (Auth.isLoggedIn() && !isMember);
     };
   });
