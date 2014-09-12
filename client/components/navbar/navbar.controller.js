@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('yuProjectsApp')
-  .controller('NavbarCtrl', function ($scope, $location, Auth) {
+  .controller('NavbarCtrl', function ($scope, $location, Auth, Project) {
 
     $scope.isCollapsed = true;
     $scope.isLoggedIn = Auth.isLoggedIn;
@@ -11,12 +11,6 @@ angular.module('yuProjectsApp')
     $scope.logout = function() {
       Auth.logout();
       $location.path('/login');
-    };
-
-    $scope.hasSubmitted = function () {
-//      if (Auth.isLoggedIn()) {
-//        Project.get()
-//      }
     };
 
     $scope.isActive = function(route) {

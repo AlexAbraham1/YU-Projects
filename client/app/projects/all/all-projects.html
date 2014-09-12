@@ -4,7 +4,16 @@
     <div class="well">
       <h1 class="text-center">Available Projects</h1>
 
-      <div ng-if="!projects.length">No projects available</div>
+      <div ng-if="!projects.length" class="text-center">
+        No projects available
+        Why don't you
+        <span ng-hide="isLoggedIn()">
+          <a href="/signup">Signup</a> or <a href="/login">Login</a> to create a project
+        </span>
+         <span ng-show="isLoggedIn()">
+          <a href="/create">Create a project</a>
+        </span>
+      </div>
       <div class="list-group">
         <div class="list-group-item" ng-repeat="project in projects">
           <div class="row">

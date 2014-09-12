@@ -22,8 +22,4 @@ angular.module('yuProjectsApp')
         });
       }
     };
-
-    $scope.loginOauth = function(provider) {
-      $window.location.href = '/auth/' + provider;
-    };
   });
